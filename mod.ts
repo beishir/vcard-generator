@@ -1,33 +1,56 @@
-import {defaultResponse} from "./defaultResponse.ts";
 
-/*
+import { defaultResponse } from "./defaultResponse.ts";
+import { jsonToCard } from "./jsonToCard.ts";
+import type { vCard } from "./deps.ts";
+
 /// <reference path="./deployctl.d.ts" />
-*/
 
-async function handleRequest(request:Request) {
+async function handleRequest(request:Request): Promise<Response> {
+
   const { pathname } = new URL(request.url);
 
   if (pathname.startsWith("/json")) {
     if (request.method !== "POST") return defaultResponse("ERROR: This endpoint only accepts POST requests");
+    let postError = "";
     const postJSON = await request.json()
-    .catch((error)=>{
-      return defaultResponse(`ERROR: Couldn't parse JSON ${error}`);
+    .catch((error:Error)=>{
+      console.log("Error parsing JSON!", error.message)
+      postError = `Couldn't parse JSON ${error.message}`;
+    })
+    if (postError !== "") { return defaultResponse(`Error: ${postError}`)}
+  
+    const card = await jsonToCard(postJSON)
+    .catch((error:Error) => { 
+      postError = `Couldn't create vCard from JSON ${error.message}` 
     });
-    console.log(postJSON);
 
-    const vcfResponse = "";
-
+    if (!card || postError !== "") { return defaultResponse(`Error: ${postError}`) }
 
     return new Response(
-      vcfResponse, {
+      card, {
         headers: {
-          "content-type": "text/html; charset=UTF-8",
+          "content-type": "text/vcard",
+          "hello-hello": "I don't know why you say goodbye.  I say hello"
         },
       }
     );
   }
 
-  return defaultResponse();
+  if (pathname.startsWith("/example")){
+
+    return new Response(
+      await jsonToCard({"firstName": "Bob"}), {
+        headers: {
+          "content-type": "text/vcard",
+          "hello-hello": "I don't know why you say goodbye.  I say hello"
+        },
+      }
+    );
+
+  }
+
+  else return defaultResponse("Error: Unhandled Endpoint")
+
 }
 
 addEventListener("fetch", (event) => {

@@ -1,0 +1,1 @@
+export {vCard} from "https://raw.githubusercontent.com/timpeq/vCards-ts/master/mod.ts"
