@@ -1,15 +1,14 @@
 
 import { defaultResponse } from "./defaultResponse.ts";
 import { jsonToCard } from "./jsonToCard.ts";
-/// <reference path="./deployctl.d.ts" />
 
 async function handleRequest(request:Request): Promise<Response> {
   if (request.method !== "POST") return defaultResponse("ERROR: This endpoint only accepts POST requests");
   let postError = "";
   const postJSON = await request.json()
   .catch((error:Error)=>{
-    console.log("Error parsing JSON!", error.message)
     postError = `Couldn't parse JSON ${error.message}`;
+    console.error(postError);
   })
 
   if (postError !== "") { return defaultResponse(`Error: ${postError}`)}
@@ -17,11 +16,10 @@ async function handleRequest(request:Request): Promise<Response> {
   const card = await jsonToCard(postJSON)
   .catch((error:Error) => { 
     postError = `Couldn't create vCard from JSON ${error.message}` 
+    console.error(postError);
   });
 
   if (!card || postError !== "") { return defaultResponse(`Error: ${postError}`) }
-
-  console.log("Returning a card", card);
 
   return new Response(
     card, {
