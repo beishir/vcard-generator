@@ -1,5 +1,5 @@
 # vcard-generator
-A TypeScript project  for [Deno Deploy](https://deno.com/deploy/) which provides an endpoint which accepts a JSON `POST` request and returns a vCard file.
+A TypeScript project for [Deno Deploy](https://deno.com/deploy/) that provides an endpoint which accepts a JSON `POST` request and returns a vCard file.
 
 The endpoint replies to any path to allow easier control of the output file name.
 
