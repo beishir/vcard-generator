@@ -37,6 +37,7 @@ export async function jsonToCard(postJSON:Record<string,string>):Promise<string>
   card.workUrl = postJSON.workUrl;
   card.workPhone = postJSON.workPhone;
   card.workFax = postJSON.workFax;
+  card.version = '4';
   if (card.nameSuffix === "throw-me") throw Error("YOU did this!")
 
   return card.getFormattedString();

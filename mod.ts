@@ -1,7 +1,7 @@
-/// <reference path="./deployctl.d.ts" />
 
 import { defaultResponse } from "./defaultResponse.ts";
 import { jsonToCard } from "./jsonToCard.ts";
+/// <reference path="./deployctl.d.ts" />
 
 async function handleRequest(request:Request): Promise<Response> {
   if (request.method !== "POST") return defaultResponse("ERROR: This endpoint only accepts POST requests");
@@ -20,6 +20,8 @@ async function handleRequest(request:Request): Promise<Response> {
   });
 
   if (!card || postError !== "") { return defaultResponse(`Error: ${postError}`) }
+
+  console.log("Returning a card", card);
 
   return new Response(
     card, {
