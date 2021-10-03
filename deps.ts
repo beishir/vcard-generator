@@ -1,1 +1,1 @@
-export {vCard} from "https://raw.githubusercontent.com/timpeq/vCards-ts/master/mod.ts"
+export { vCard } from "https://deno.land/x/vcard@v1.0.6d/mod.ts"
