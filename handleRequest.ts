@@ -28,7 +28,7 @@ export async function handleRequest(request: Request): Promise<Response> {
 
   return new Response(card, {
     headers: {
-      "content-type": "application/octet-stream",
+      "content-type": postJSON.contentType ? postJSON.contentType : "application/octet-stream",
     }
   }
 );}
