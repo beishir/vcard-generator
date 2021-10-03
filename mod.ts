@@ -26,6 +26,17 @@ async function handleRequest(request:Request): Promise<Response> {
 
     if (!card || postError !== "") { return defaultResponse(`Error: ${postError}`) }
 
+    if (postJSON.callback) {
+      const req:RequestInit = {
+        method: "POST",
+        body: card,
+        headers: {
+          "content-type":"text-vcard"
+        }
+      }
+      await fetch(postJSON.callback, req)
+    }
+
     return new Response(
       card, {
         headers: {
