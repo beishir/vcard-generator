@@ -25,7 +25,6 @@ async function handleRequest(request:Request): Promise<Response> {
     card, {
       headers: {
         "content-type": "application/octet-stream",
-        "hello-hello": "I don't know why you say goodbye.  I say hello"
       },
     }
   );
