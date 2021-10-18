@@ -1,13 +1,10 @@
 export function errorResponse(errorCode?:number, errorText = ""):Response{
-  return new Response(`
-    <body style="text-align: center; font-family: Avenir, Helvetica, Arial, sans-serif">
-      <p style="color:red;">${errorText}</p>
-    </body>
-  `,
+  return new Response(errorText,
   {
     status: errorCode ? errorCode : 400,
+    statusText: errorText,
     headers: {
-      "content-type": "text/html; charset=UTF-8",
+      "content-type": "text/plain; charset=UTF-8",
     },
     
   });
