@@ -1,6 +1,7 @@
-
+import { listenAndServe, ServerRequest } from "./deps.ts";
 import { handleRequest } from "./handleRequest.ts";
 
-addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event.request));
+
+listenAndServe(":8000", (request: ServerRequest)=>{
+  return handleRequest(request);
 });
