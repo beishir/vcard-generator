@@ -5,16 +5,16 @@ The endpoint replies to any path to allow easier control of the output file name
 
 ## Running Locally
 
-Although this project is indented to run with Deno Deploy, it may be ran anywhere with [Deno](https://deno.land) and [deployctl](https://deno.com/deploy/docs/deployctl/)
+Although this project is indented to run with Deno Deploy, it may be ran anywhere with [Deno](https://deno.land)
 
 ```bash
-deployctl run mod.ts
+deno run --allow-net=:8000 mod.ts
 ```
 
 ## Running In Development Mode
-`deployctl` allows running in 'watch' mode, automatically restarting when files are changed
+`deno` allows running in 'watch' mode, automatically restarting when files are changed
 ```bash
-deployctl run --watch mod.ts
+deno --allow-net=:8000 run --watch mod.ts
 ```
 
 ## Usage
